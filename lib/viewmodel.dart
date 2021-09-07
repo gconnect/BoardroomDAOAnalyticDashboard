@@ -11,7 +11,7 @@ class BoardRoomViewModel extends ChangeNotifier {
   List<Data> protocols = [];
   List<ProposalData> proposals = [];
   List<VotersData> voters = [];
-  Stats stats = Stats();
+  Stats? stats;
   ProtocolsDataSource? protocolsDataSource;
 
   Future loadProtocols() async {
@@ -43,9 +43,9 @@ class BoardRoomViewModel extends ChangeNotifier {
     }
   }
 
-  Future loadStats() async {
+  void loadStats() async {
     try {
-      stats = await BoardroomApiService.fetchStats();
+      stats = await BoardroomApiService.getStats();
       notifyListeners();
     } catch (err) {
       print(err);

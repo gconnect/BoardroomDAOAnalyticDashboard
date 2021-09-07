@@ -70,7 +70,7 @@ class BoardroomApiService {
 
       // Parsing the raw JSON data to the Stats class
       Stats stats = Stats.fromJson(response.data);
-      print("Stat is: ${stats.data}");
+      print("Stat is: ${stats.data?.totalProtocols}");
       return stats;
       return Stats.fromJson(jsonDecode(response.data['data']));
     } else {
@@ -78,5 +78,30 @@ class BoardroomApiService {
       // then throw an exception.
       throw Exception('Failed to load stats');
     }
+  }
+
+  static Future<Stats?> getStats() async {
+    final Dio _dio = Dio();
+
+    Stats? stats;
+    try {
+      Response response = await _dio.get(STATS_URL);
+      print('Stat Info: ${response.data}');
+      stats = Stats.fromJson(response.data);
+    } on DioError catch (e) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx and is also not 304.
+      if (e.response != null) {
+        print('Dio error!');
+        print('STATUS: ${e.response?.statusCode}');
+        print('DATA: ${e.response?.data}');
+        print('HEADERS: ${e.response?.headers}');
+      } else {
+        // Error due to setting up or sending the request
+        print('Error sending request!');
+        print(e.message);
+      }
+    }
+    return stats;
   }
 }

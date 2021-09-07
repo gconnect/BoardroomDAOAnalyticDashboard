@@ -38,8 +38,7 @@ class _VotersPageState extends State<VotersPage> {
                       height: 100,
                       padding: EdgeInsets.all(10),
                       child: ListTile(
-                        leading: Text(voters[index].totalVotesCast.toString() ??
-                            'No title'),
+                        leading: Text("hello"),
                         // title: Text(name!),
                         // subtitle: Text("Protocols : $protocols"),
                         // trailing: Text("Token Price : $price"),
