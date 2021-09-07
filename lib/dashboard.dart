@@ -56,13 +56,15 @@ class _DashboardState extends State<Dashboard>
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.mail),
+            icon: Icon(Icons.account_balance_wallet),
             label: 'Protocols',
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Proposals'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Voters'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.person), label: 'Leaderboard'),
+              icon: Icon(Icons.workspaces_filled), label: 'Proposals'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.how_to_vote_rounded), label: 'Voters'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.leaderboard), label: 'Leaderboard'),
         ],
       ),
       body: _children[_currentIndex],
