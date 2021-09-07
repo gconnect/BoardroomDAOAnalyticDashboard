@@ -1,16 +1,21 @@
-# boardroom_analytic
+# Boardroom Analytic Dashboard with LeaderBoard Cross Platform Mobile App
 
-A new Flutter application.
+The Boardroom analytic dashboard is a cross-platform mobile application built with flutter.
 
-## Getting Started
+## Setup
+- Install android studio and latest version of flutter
+- open the project and run it. 
 
-This project is a starting point for a Flutter application.
+## What the App Does
+- Homepage displays the Global Statisctics using the Boardroom API
+- Proposals Page to view all proposals
+- Protocol page to view all protocols
+- Voters page to view all voters
 
-A few resources to get you started if this is your first Flutter project:
+## Features to add
+- Detail page for protocols, proposals, voters to show more details on the data from the Boardroom API
+- Add search functionality so that users can search for what they want using the search params like address to get list/details of a particular protocol, proposals and voter
+- Improve on the leaderboard.
+- Deployment on playstore
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
