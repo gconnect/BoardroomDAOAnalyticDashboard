@@ -4,16 +4,16 @@ import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'models/protocols.dart';
 
 class ProtocolsDataSource extends DataGridSource {
-  ProtocolsDataSource({required List<Data> protocols}) {
-    _protocols = protocols
+  ProtocolsDataSource({required List<Data>? protocols}) {
+    _protocols = protocols!
         .map<DataGridRow>((p) => DataGridRow(cells: [
               DataGridCell<String>(columnName: 'LOGO', value: p.icons?[0].url),
               DataGridCell<String>(
                   columnName: 'NAME', value: p.name.toString()),
-              DataGridCell<int>(
+              DataGridCell<num>(
                   columnName: 'PROPOSAL', value: p.totalProposals),
-              DataGridCell<int>(columnName: 'VOTES', value: p.totalVotes),
-              DataGridCell<double>(
+              DataGridCell<num>(columnName: 'VOTES', value: p.totalVotes),
+              DataGridCell<num>(
                   columnName: 'TOKEN PRICE',
                   value: p.tokens?[0].marketPrices?[0].price),
             ]))

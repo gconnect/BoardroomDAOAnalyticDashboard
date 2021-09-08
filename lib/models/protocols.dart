@@ -1,13 +1,13 @@
-class Protocols {
-  late List<Data> data;
+class Protocolls {
+  List<Data>? data;
 
-  Protocols({required this.data});
+  Protocolls({required this.data});
 
-  Protocols.fromJson(Map<String, dynamic> json) {
+  Protocolls.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
       data = <Data>[];
       json['data'].forEach((v) {
-        data.add(new Data.fromJson(v));
+        data?.add(new Data.fromJson(v));
       });
     }
   }
@@ -15,7 +15,7 @@ class Protocols {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+      data['data'] = this.data?.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -24,9 +24,9 @@ class Protocols {
 class Data {
   String? cname;
   String? name;
-  int? totalProposals;
-  int? totalVotes;
-  int? uniqueVoters;
+  num? totalProposals;
+  num? totalVotes;
+  num? uniqueVoters;
   List<Icons>? icons;
   List<Tokens>? tokens;
 
@@ -140,7 +140,7 @@ class Tokens {
 
 class MarketPrices {
   String? currency;
-  double price = 0;
+  num? price;
 
   MarketPrices({
     this.currency,

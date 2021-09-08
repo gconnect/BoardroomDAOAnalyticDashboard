@@ -1,9 +1,7 @@
 import 'package:boardroom_analytic/models/protocols.dart';
-import 'package:boardroom_analytic/table_widget.dart';
-import 'package:dio/dio.dart';
+import 'package:boardroom_analytic/viewmodel.dart';
 import 'package:flutter/material.dart';
-
-import 'constants/constants.dart';
+import 'package:provider/provider.dart';
 
 class ProtocolsPage extends StatefulWidget {
   @override
@@ -11,45 +9,45 @@ class ProtocolsPage extends StatefulWidget {
 }
 
 class _ProtocolsPageState extends State<ProtocolsPage> {
-  List<Data> protocols = [];
-  // late Future<List<Data>> futureAlbum;
+  Protocolls? protocols;
+  var boardRoomViewModel = BoardRoomViewModel();
+  ScrollController? controller;
 
   @override
   void initState() {
+    boardRoomViewModel.loadProtocols();
+    protocols = boardRoomViewModel.protocols;
     super.initState();
-    // protocols = fetchAlbum();
-    // getProtocols();
-  }
-
-  void getProtocols() async {
-    protocols = await fetchProtocols();
-    print("from init ${protocols.length}");
   }
 
   @override
   Widget build(BuildContext context) {
-    return TableWidget();
-  }
-
-  Future<List<Data>> fetchProtocols() async {
-    final Dio _dio = Dio();
-    final response = await _dio.get(PROTOCOLS_URL);
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print(response.data);
-      // return Protocols.fromJson(jsonDecode(response.data));
-      return List<Data>.from(
-          response.data['data'].map((x) => Data.fromJson(x)));
-    } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
-    }
+    return ChangeNotifierProvider<BoardRoomViewModel>(
+      create: (_) => boardRoomViewModel,
+      child: Consumer<BoardRoomViewModel>(
+        builder: (context, model, child) {
+          return Scrollbar(
+              child: ListView.builder(
+                  itemCount: model.protocols?.data?.length ?? 0,
+                  shrinkWrap: true,
+                  controller: controller,
+                  itemBuilder: (context, index) {
+                    return protocolItem(
+                      model.protocols?.data![index].name,
+                      model.protocols?.data![index].totalVotes,
+                      model.protocols?.data![index].tokens![0].marketPrices![0]
+                          .price
+                          ?.toDouble(),
+                      model.protocols?.data![index].icons?[0].url,
+                    );
+                  }));
+        },
+      ),
+    );
   }
 
   Widget protocolItem(
-      String? name, int? protocols, double? price, String? imageurl) {
+      String? name, num? proposals, double? price, String? imageurl) {
     return Container(
         color: Colors.purple[50],
         child: Column(children: [
@@ -63,8 +61,8 @@ class _ProtocolsPageState extends State<ProtocolsPage> {
                 child: ListTile(
                   leading: Image.network(imageurl!),
                   title: Text(name!),
-                  subtitle: Text("Protocols : $protocols"),
-                  trailing: Text("Token Price : $price"),
+                  subtitle: Text("Votes : $proposals"),
+                  trailing: Text("Price : $price"),
                 ),
               ))
         ]));

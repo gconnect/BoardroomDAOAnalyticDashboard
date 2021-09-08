@@ -14,23 +14,18 @@ class _TableWidgetState extends State<TableWidget> {
   var viewModel = BoardRoomViewModel();
   List<Data> protocolData = [];
   late final ProtocolsDataSource protocolsDataSource;
+
   @override
   void initState() {
     super.initState();
-    loadProtocolData();
+    viewModel.loadProtocols();
     protocolsDataSource = ProtocolsDataSource(protocols: protocolData);
-  }
-
-  void loadProtocolData() async {
-    protocolData = await viewModel.loadProtocols();
-    print("from table ${protocolData.length}");
   }
 
   @override
   Widget build(BuildContext context) {
-    // final provider = Provider.of<ProtocolsViewmodel>(context);
-    // final protocolsDataSource = provider.protocolsDataSource;
-    print("data $protocolData");
+    print("data ${viewModel.protocols?.data?.length}");
+
     if (protocolsDataSource == null) {
       return CircularProgressIndicator();
     } else {

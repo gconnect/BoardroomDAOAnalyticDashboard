@@ -26,9 +26,9 @@ class Voters {
 
 class VotersData {
   String? address;
-  int? firstVoteCast;
-  int? lastVoteCast;
-  int? totalVotesCast;
+  num? firstVoteCast;
+  num? lastVoteCast;
+  num? totalVotesCast;
   List<Protocols>? protocols;
 
   VotersData(
@@ -66,11 +66,11 @@ class VotersData {
 
 class Protocols {
   String? protocol;
-  int? totalVotesCast;
-  int? lastVoteCast;
-  int? firstVoteCast;
-  int? totalPowerCast;
-  double? lastCastPower;
+  num? totalVotesCast;
+  num? lastVoteCast;
+  num? firstVoteCast;
+  num? totalPowerCast;
+  num? lastCastPower;
 
   Protocols(
       {this.protocol,

@@ -32,12 +32,12 @@ class ProposalData {
   String? protocol;
   String? adapter;
   String? proposer;
-  int? totalVotes;
-  int? blockNumber;
+  num? totalVotes;
+  num? blockNumber;
   StartTime? startTime;
   StartTime? endTime;
-  int? startTimestamp;
-  int? endTimestamp;
+  num? startTimestamp;
+  num? endTimestamp;
   String? currentState;
   List<String>? choices;
   List<Results>? results;
@@ -128,7 +128,7 @@ class ProposalData {
 }
 
 class StartTime {
-  int? blockNumber;
+  num? blockNumber;
 
   StartTime({this.blockNumber});
 
@@ -144,8 +144,8 @@ class StartTime {
 }
 
 class Results {
-  double? total;
-  int? choice;
+  num? total;
+  num? choice;
 
   Results({this.total, this.choice});
 
@@ -165,7 +165,7 @@ class Results {
 class Events {
   StartTime? time;
   String? event;
-  int? timestamp;
+  num? timestamp;
 
   Events({this.time, this.event, this.timestamp});
 

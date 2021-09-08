@@ -2,41 +2,40 @@ import 'package:boardroom_analytic/boardroom_service.dart';
 import 'package:boardroom_analytic/custom_table_page.dart';
 import 'package:boardroom_analytic/models/proposals.dart';
 import 'package:boardroom_analytic/models/voters.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'models/protocols.dart';
 import 'models/stats.dart';
 
 class BoardRoomViewModel extends ChangeNotifier {
-  List<Data> protocols = [];
-  List<ProposalData> proposals = [];
-  List<VotersData> voters = [];
+  Protocolls? protocols;
+  Proposals? proposals;
+  Voters? voters;
   Stats? stats;
   ProtocolsDataSource? protocolsDataSource;
 
-  Future loadProtocols() async {
+  void loadProtocols() async {
     try {
-      final _protocols = await BoardroomApiService.fetchProtocols();
-      this.protocols = _protocols;
-      protocolsDataSource = ProtocolsDataSource(protocols: protocols);
+      protocols = await BoardroomApiService.getProtocols();
+      protocolsDataSource = ProtocolsDataSource(protocols: protocols?.data);
       notifyListeners();
     } catch (err) {
       print(err);
     }
   }
 
-  Future loadProposals() async {
+  void loadProposals() async {
     try {
-      proposals = await BoardroomApiService.fetchProposals();
+      proposals = await BoardroomApiService.getProposals();
       notifyListeners();
     } catch (err) {
       print(err);
     }
   }
 
-  Future loadVoters() async {
+  void loadVoters() async {
     try {
-      voters = await BoardroomApiService.fetchVotes();
+      voters = await BoardroomApiService.getVoters();
       notifyListeners();
     } catch (err) {
       print(err);
