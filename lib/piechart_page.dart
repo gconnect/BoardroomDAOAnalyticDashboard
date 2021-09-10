@@ -1,7 +1,9 @@
+import 'package:boardroom_analytic/viewmodel.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 import 'indicator.dart';
+import 'models/stats.dart';
 
 class PieChartPage extends StatefulWidget {
   @override
@@ -9,7 +11,15 @@ class PieChartPage extends StatefulWidget {
 }
 
 class PieChartPageState extends State {
+  var boardRoomViewModel = BoardRoomViewModel();
   int touchedIndex = -1;
+  late Future<Stats?> stats;
+
+  @override
+  void initState() {
+    stats = boardRoomViewModel.loadStats();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +108,9 @@ class PieChartPageState extends State {
   }
 
   List<PieChartSectionData> showingSections() {
+    // double value = stats
+    //     .then((value) => value?.data?.totalProposals?.toDouble()) as double;
+
     return List.generate(4, (i) {
       final isTouched = i == touchedIndex;
       final fontSize = isTouched ? 25.0 : 16.0;
