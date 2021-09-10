@@ -11,11 +11,11 @@ class ProtocolsDataSource extends DataGridSource {
               DataGridCell<String>(
                   columnName: 'NAME', value: p.name.toString()),
               DataGridCell<num>(
-                  columnName: 'PROPOSAL', value: p.totalProposals),
-              DataGridCell<num>(columnName: 'VOTES', value: p.totalVotes),
-              DataGridCell<num>(
                   columnName: 'TOKEN PRICE',
                   value: p.tokens?[0].marketPrices?[0].price),
+              DataGridCell<num>(columnName: 'VOTES', value: p.totalVotes),
+              DataGridCell<num>(
+                  columnName: 'PROPOSAL', value: p.totalProposals),
             ]))
         .toList();
   }
@@ -29,6 +29,9 @@ class ProtocolsDataSource extends DataGridSource {
   DataGridRowAdapter? buildRow(DataGridRow row) {
     return DataGridRowAdapter(
         cells: row.getCells().map<Widget>((dataGridCell) {
+      if (dataGridCell.columnName == "LOGO") {
+        return buildIdIcon(dataGridCell.value);
+      }
       return Container(
         alignment: (dataGridCell.columnName == 'LOGO' ||
                 dataGridCell.columnName == 'NAME')
@@ -39,4 +42,13 @@ class ProtocolsDataSource extends DataGridSource {
       );
     }).toList());
   }
+
+  Widget buildIdIcon(String? logo) => Container(
+        padding: EdgeInsets.all(12.0),
+        child: Image.network(
+          logo ?? "",
+          height: 100,
+          width: 100,
+        ),
+      );
 }

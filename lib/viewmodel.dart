@@ -14,7 +14,7 @@ class BoardRoomViewModel extends ChangeNotifier {
   Stats? stats;
   ProtocolsDataSource? protocolsDataSource;
 
-  void loadProtocols() async {
+  Future<Protocolls?> loadProtocols() async {
     try {
       protocols = await BoardroomApiService.getProtocols();
       protocolsDataSource = ProtocolsDataSource(protocols: protocols?.data);
@@ -22,32 +22,36 @@ class BoardRoomViewModel extends ChangeNotifier {
     } catch (err) {
       print(err);
     }
+    return protocols;
   }
 
-  void loadProposals() async {
+  Future<Proposals?> loadProposals() async {
     try {
       proposals = await BoardroomApiService.getProposals();
       notifyListeners();
     } catch (err) {
       print(err);
     }
+    return proposals;
   }
 
-  void loadVoters() async {
+  Future<Voters?> loadVoters() async {
     try {
       voters = await BoardroomApiService.getVoters();
       notifyListeners();
     } catch (err) {
       print(err);
     }
+    return voters;
   }
 
-  void loadStats() async {
+  Future<Stats?> loadStats() async {
     try {
       stats = await BoardroomApiService.getStats();
       notifyListeners();
     } catch (err) {
       print(err);
     }
+    return stats;
   }
 }

@@ -1,9 +1,7 @@
-import 'package:boardroom_analytic/custom_table_page.dart';
 import 'package:boardroom_analytic/viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-
-import 'models/protocols.dart';
 
 class TableWidget extends StatefulWidget {
   @override
@@ -11,23 +9,24 @@ class TableWidget extends StatefulWidget {
 }
 
 class _TableWidgetState extends State<TableWidget> {
-  var viewModel = BoardRoomViewModel();
-  List<Data> protocolData = [];
-  late final ProtocolsDataSource protocolsDataSource;
-
   @override
   void initState() {
     super.initState();
-    viewModel.loadProtocols();
-    protocolsDataSource = ProtocolsDataSource(protocols: protocolData);
   }
 
   @override
   Widget build(BuildContext context) {
-    print("data ${viewModel.protocols?.data?.length}");
-
+    final provider = Provider.of<BoardRoomViewModel>(context);
+    final protocolsDataSource = provider.protocolsDataSource;
     if (protocolsDataSource == null) {
-      return CircularProgressIndicator();
+      return Center(
+          child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Center(child: CircularProgressIndicator()),
+          Text("Loading Protocols")
+        ],
+      ));
     } else {
       return SfDataGrid(
         source: protocolsDataSource,
@@ -53,12 +52,11 @@ class _TableWidgetState extends State<TableWidget> {
                   alignment: Alignment.centerLeft,
                   child: Text('NAME'))),
           GridColumn(
-              columnName: 'PROPOSALS',
-              width: 120,
+              columnName: 'PRICE',
               label: Container(
                   padding: EdgeInsets.all(16.0),
-                  alignment: Alignment.centerLeft,
-                  child: Text('PROPOSALS'))),
+                  alignment: Alignment.centerRight,
+                  child: Text('PRICE'))),
           GridColumn(
               columnName: 'VOTES',
               label: Container(
@@ -66,11 +64,12 @@ class _TableWidgetState extends State<TableWidget> {
                   alignment: Alignment.centerRight,
                   child: Text('VOTES'))),
           GridColumn(
-              columnName: 'PRICE',
+              columnName: 'PROPOSALS',
+              width: 120,
               label: Container(
                   padding: EdgeInsets.all(16.0),
-                  alignment: Alignment.centerRight,
-                  child: Text('PRICE'))),
+                  alignment: Alignment.centerLeft,
+                  child: Text('PROPOSALS'))),
         ],
       );
     }

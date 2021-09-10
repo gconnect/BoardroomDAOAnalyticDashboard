@@ -38,16 +38,12 @@ class _DashboardState extends State<Dashboard>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.deepPurpleAccent,
-        title: Text("Boardroom Analytical Dashboard"),
-      ),
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.purple[100],
         selectedItemColor: Colors.purple,
         showUnselectedLabels: true,
         onTap: onTabTapped, // new
-        currentIndex: _currentIndex, // new
+        currentIndex: _currentIndex, //// new
         items: [
           BottomNavigationBarItem(
             icon: Icon(

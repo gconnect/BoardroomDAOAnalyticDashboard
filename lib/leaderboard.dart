@@ -13,9 +13,15 @@ class _LeaderboardState extends State<Leaderboard> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-      child: Text("Leader board here"),
-    ));
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Leaderboard"),
+        backgroundColor: Colors.deepPurpleAccent,
+      ),
+      body: Center(
+          child: Container(
+        child: Text("Leader board here"),
+      )),
+    );
   }
 }
